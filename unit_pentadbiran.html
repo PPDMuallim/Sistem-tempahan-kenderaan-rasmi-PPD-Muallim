@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Unit Pentadbiran</title>
+    <style>
+        body {
+            background-image: url('/static/background.jpg');
+            background-size: cover;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 125vh;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        .form-box {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 3px solid white;
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%;
+            max-width: 700px;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input, select, button {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid white;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+        }
+        button {
+            background-color: lightblue;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: deepskyblue;
+        }
+        .message {
+            background-color: rgba(0, 255, 0, 0.2);
+            color: lightgreen;
+            padding: 10px;
+            border: 2px solid lightgreen;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        function showConfirmation(event) {
+            event.preventDefault(); // Prevent form submission
+            const confirmationMessage = document.getElementById('confirmation-message');
+            confirmationMessage.style.display = 'block'; // Show confirmation message
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="form-box">
+            <h1>Pemakluman Kelulusan kepada Unit Pentadbiran</h1>
+            <form action="/submit-pemakluman-unit" method="post" onsubmit="showConfirmation(event)">
+                <label for="status">Status Permohonan:</label>
+                <select id="status" name="status" required>
+                    <option value="" disabled selected>Pilih Status</option>
+                    <option value="Diluluskan">Diluluskan</option>
+                    <option value="Ditolak">Ditolak</option>
+                </select>
+
+                <label for="pemandu">Nama Pemandu:</label>
+                <input type="text" id="pemandu" name="pemandu" placeholder="Masukkan nama pemandu" required>
+
+                <label for="no_kenderaan">Nombor Kenderaan:</label>
+                <input type="text" id="no_kenderaan" name="no_kenderaan" placeholder="Masukkan nombor kenderaan" required>
+
+                <label for="no_tel">Nombor Telefon Pemandu:</label>
+                <input type="tel" id="no_tel" name="no_tel" placeholder="Masukkan nombor telefon pemandu" required>
+
+                <label for="tandatangan">Tandatangan Unit Pentadbiran:</label>
+                <input type="file" id="tandatangan" name="tandatangan" accept=".jpg, .jpeg, .png, .pdf" required>
+
+                <label for="tarikh">Tarikh:</label>
+                <input type="date" id="tarikh" name="tarikh" required>
+
+                <button type="submit">Hantar Makluman</button>
+            </form>
+
+            <!-- Confirmation message -->
+            <div id="confirmation-message" class="message" style="display: none;">
+                Pemakluman telah berjaya dihantar dan disimpan oleh unit pentadbiran.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

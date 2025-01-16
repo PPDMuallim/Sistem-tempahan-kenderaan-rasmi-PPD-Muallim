@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sistem Permohonan</title>
+    <style>
+        body {
+            background-image: url('https://www.google.com/search?q=background+sistem+&sca_esv=2ab293e83490bf26&udm=2&biw=1366&bih=641&sxsrf=ADLYWILhB9lc92pJwY553q4cpdKAq0Q04w%3A1736397061159&ei=BVF_Z6O4Ca6YseMPgNerkAw&ved=0ahUKEwjjzpOQ5-eKAxUuTGwGHYDrCsIQ4dUDCBE&uact=5&oq=background+sistem+&gs_lp=EgNpbWciEmJhY2tncm91bmQgc2lzdGVtIEicGlC7GVi7GXADeACQAQCYAQCgAQCqAQC4AQPIAQD4AQGYAgCgAgCYAwCIBgGSBwCgBwA&sclient=img#imgrc=8uynx2H8LHYZoM&imgdii=EIrsBnyaUKbRsM/static/background.jpg');
+            background-size: cover;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .title-box {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 5px solid white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        .menu-box {
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 1px solid white;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px;
+            width: 50%;
+            text-align: center;
+            cursor: pointer;
+        }
+        a {
+            color: lightblue;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .content-box {
+            width: 90%;
+            height: 70vh;
+            border: 3px solid white;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+  </style>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"></script>
+    <script>
+        // Konfigurasi Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDdg5ez1_AAyLx9EvdPvxkVC2JdLuVfhNM",
+            authDomain: "tempahankenderaanppdmuallim.firebaseapp.com",
+            projectId: "tempahankenderaanppdmuallim",
+            storageBucket: "tempahankenderaanppdmuallim.firebasestorage.app",
+            messagingSenderId: "581374791164",
+            appId: "1:581374791164:web:8287a3520d5d3e8acbf679"
+        };
+
+        // Inisialisasi Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore(app);
+
+        function submitForm(data) {
+            db.collection("borang_tempahan")
+                .add(data)
+                .then(() => alert("Borang berjaya dihantar!"))
+                .catch((error) => console.error("Ralat: ", error));
+        }
+
+        function loadContent(page) {
+            document.getElementById('content-frame').src = page;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="title-box">
+            <h1>Selamat Datang ke Sistem Tempahan Kenderaan Rasmi Pejabat Pendidikan Daerah Muallim</h1>
+        </div>
+        <!-- Menu Box dengan Kedudukan Menegak -->
+        <div class="menu-box" onclick="loadContent('/halamanutama.html')">
+            <a href="#">Halaman Utama</a>
+        </div>
+        <div class="menu-box" onclick="loadContent('/senarai_kenderaan.html')">
+            <a href="#">Senarai Kenderaan</a>
+        </div>
+        <div class="menu-box" onclick="loadContent('/borang_permohonan.html')">
+            <a href="#">Borang Permohonan</a>
+        </div>
+        <div class="menu-box" onclick="loadContent('/kelulusan_pegawai_PPD.html')">
+            <a href="#">Kelulusan</a>
+        </div>
+        <div class="menu-box" onclick="loadContent('/unit_pentadbiran.html')">
+            <a href="#">Unit Pentadbiran</a>
+        </div>
+        <div class="menu-box" onclick="loadContent('/keputusan.html')">
+            <a href="#">Keputusan</a>
+        </div>
+        <!-- Kandungan Dinamik -->
+        <div class="content-box">
+            <iframe id="content-frame" src="/index.html"></iframe>
+        </div>
+    </div>
+</body>
+</html>

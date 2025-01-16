@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pemakluman Keputusan kepada Pemohon</title>
+    <style>
+        body {
+            background-image: url('/static/background.jpg');
+            background-size: cover;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 110vh;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        .form-box {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 3px solid white;
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%;
+            max-width: 700px;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input, textarea, button {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid white;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+        }
+        button {
+            background-color: lightblue;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: deepskyblue;
+        }
+        .message {
+            background-color: rgba(0, 255, 0, 0.2);
+            color: lightgreen;
+            padding: 10px;
+            border: 2px solid lightgreen;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        async function sendEmail(event) {
+            event.preventDefault(); // Prevent form submission
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            const attachment = document.getElementById('attachment').files[0];
+
+            const formData = new FormData();
+            formData.append('email', email);
+            formData.append('subject', subject);
+            formData.append('message', message);
+            formData.append('attachment', attachment);
+
+            try {
+                const response = await fetch('/send-email', {
+                    method: 'POST',
+                    body: formData
+                });
+                if (response.ok) {
+                    document.getElementById('confirmation-message').style.display = 'block';
+                } else {
+                    alert('Gagal menghantar email. Sila cuba lagi.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Terdapat masalah pada server.');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="form-box">
+            <h1>Pemakluman Keputusan</h1>
+            <form onsubmit="sendEmail(event)">
+                <label for="email">Email Pemohon:</label>
+                <input type="email" id="email" name="email" placeholder="Masukkan email pemohon" required>
+
+                <label for="subject">Subjek Email:</label>
+                <input type="text" id="subject" name="subject" placeholder="Masukkan subjek email" required>
+
+                <label for="message">Mesej Keputusan:</label>
+                <textarea id="message" name="message" rows="6" placeholder="Masukkan mesej keputusan kepada pemohon" required></textarea>
+
+                <label for="attachment">Lampiran Borang Permohonan:</label>
+                <input type="file" id="attachment" name="attachment" accept=".pdf, .doc, .docx" required>
+
+                <button type="submit">Hantar Pemakluman</button>
+            </form>
+
+            <!-- Confirmation message -->
+            <div id="confirmation-message" class="message" style="display: none;">
+                Pemakluman keputusan telah berjaya dihantar kepada pemohon bersama borang permohonan.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Borang Permohonan</title>
+    <style>
+        body {
+            background-image: url('/static/background.jpg');
+            background-size: cover;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .form-box {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 3px solid white;
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%;
+			max-width: 600px; /* Hadkan lebar maksimum */
+            text-align: center; /* Memusatkan teks */
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input, select, textarea, button {
+		   width: 80%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border: 1px solid white;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+        }
+        button {
+            background-color: lightblue;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: deepskyblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-box">
+            <h1>Borang permohonan penggunaan kenderaan PPD Muallim</h1>
+            <h4>Butiran Penggunaan</h4>
+            
+            <form action="/submit-permohonan" method="post" enctype="multipart/form-data">
+                <label for="nama">Nama Pemohon:</label>
+                <input type="text" id="nama" name="nama" placeholder="Masukkan nama anda" required>
+                
+                <label for="jawatan">Jawatan:</label>
+                <input type="text" id="jawatan" name="jawatan" placeholder="Masukkan jawatan anda" required>
+                
+                 <label for="sektor">Sektor/Unit:</label>
+                <input type="text" id="sektor" name="sektor" placeholder="Masukkan sektor/unit anda" required>
+                
+                <label for="No hp">No Hp:</label>
+                <input type="int" id="no" name="no telefon" placeholder="Masukkan no tel anda" required>
+                
+				<label for="email">Email:</label>
+                <input type="int" id="no" name="alamat email" placeholder="Masukkan email rasmi anda" required>
+				
+                <label for="kenderaan">Pilih Kenderaan:</label>
+                <select id="kenderaan" name="kenderaan" required>
+                    <optgroup label="Kereta">
+                        <option value="Perodua Myvi - WXX 1234">Perodua Myvi - WXX 1234</option>
+                        <option value="Proton Saga - WYY 5678">Proton Saga - WYY 5678</option>
+                        <option value="Honda City - WZZ 9101">Honda City - WZZ 9101</option>
+                    </optgroup>
+                    
+                    <optgroup label="Van">
+                        <option value="Van Toyota Hiace - VXX 5566">Van Toyota Hiace - VXX 5566</option>
+                        <option value="Van Nissan Urvan - VYY 7788">Van Nissan Urvan - VYY 7788</option>
+                    </optgroup>
+                    
+                    <optgroup label="Bas">
+                        <option value="Bas Mini - BXX 1122">Bas Mini - BXX 1122</option>
+                        <option value="Bas Ekspres - BYY 3344">Bas Ekspres - BYY 3344</option>
+                    </optgroup>
+                </select>
+                
+                <label for="tujuan">Tujuan Tempahan:</label>
+                <textarea id="tujuan" name="tujuan" rows="4" placeholder="Masukkan tujuan penggunaan kenderaan" required></textarea>
+                
+                <label for="tarikh">Tarikh Penggunaan:</label>
+                <input type="date" id="tarikh" name="tarikh" required>
+                
+                <label for="masa-mula">Masa Mula Penggunaan:</label>
+                <input type="time" id="masa-mula" name="masa_mula" required>
+                
+                <label for="masa-tamat">Masa Tamat Penggunaan:</label>
+                <input type="time" id="masa-tamat" name="masa_tamat" required>
+              
+              <label for="lokasi">Lokasi:</label>
+                <input type="text" id="Lokasi" name="lokasi" placeholder="Masukkan lokasi anda" required>
+                             
+              <label for="Nama">Nama Penumpang Yang Pergi Bersama:</label>
+              <input type="text" id="Penumpang" name="Penumpang" placeholder="Masukkan senarai nama penumpang yang pergi bersama" required> 
+              
+                <!-- New Section: Upload Borang Tugasan -->
+                <label for="borang-tugasan">Upload Borang Tugasan Rasmi:</label>
+                <input type="file" id="borang-tugasan" name="borang_tugasan" accept=".pdf, .doc, .docx, .jpg, .png" required>
+                
+                <label for="tandatangan">Tanda Tangan Pemohon:</label>
+<input type="file" id="tandatangan" name="tandatangan" accept=".jpg, .jpeg, .png" required>
+
+               
+                <button type="submit">Hantar Permohonan</button>
+            </form>
+        </div>
+    </div>
+</body>

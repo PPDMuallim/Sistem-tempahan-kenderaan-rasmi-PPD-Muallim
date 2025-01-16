@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kelulusan</title>
+    <style>
+        body {
+            background-image: url('/static/background.jpg');
+            background-size: cover;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        .form-box {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 3px solid white;
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, textarea, button {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid white;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+        }
+        button {
+            background-color: lightblue;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: deepskyblue;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: 25px; /* Larger checkbox size */
+            height: 25px;
+            margin-right: 5px;
+        }
+        .hidden {
+            display: none;
+        }
+        .checkbox-label {
+            font-size: 18px;
+        }
+    </style>
+    <script>
+        function toggleKomen(selectedId) {
+            const komenSection = document.getElementById('komen-section');
+            const lulusCheckbox = document.getElementById('lulus');
+            const tolakCheckbox = document.getElementById('tolak');
+
+            // Only allow one checkbox to be selected at a time
+            if (selectedId === 'lulus') {
+                tolakCheckbox.checked = false;
+                komenSection.classList.add('hidden');
+            } else if (selectedId === 'tolak') {
+                lulusCheckbox.checked = false;
+                komenSection.classList.remove('hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="form-box">
+            <h1>Kelulusan dari Pegawai Pendidikan Daerah Muallim</h1>
+            <form action="/submit-kelulusan" method="post" enctype="multipart/form-data">
+                <label>Status Kelulusan:</label>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="lulus" name="status_kelulusan" value="Diluluskan" onclick="toggleKomen('lulus')">
+                    <label for="lulus" class="checkbox-label">Diluluskan</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="tolak" name="status_kelulusan" value="Ditolak" onclick="toggleKomen('tolak')">
+                    <label for="tolak" class="checkbox-label">Ditolak</label>
+                </div>
+
+                <!-- Section for Comments (hidden by default) -->
+                <div id="komen-section" class="hidden">
+                    <label for="komen">Sebab Penolakan:</label>
+                    <textarea id="komen" name="komen" rows="4" placeholder="Nyatakan sebab penolakan"></textarea>
+                </div>
+
+                <label for="tandatangan">Tandatangan Pegawai:</label>
+                <input type="file" id="tandatangan" name="tandatangan" accept=".jpg, .jpeg, .png, .pdf" required>
+
+                <label for="tarikh">Tarikh:</label>
+                <input type="date" id="tarikh" name="tarikh" required>
+
+                <button type="submit">Hantar Kelulusan</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

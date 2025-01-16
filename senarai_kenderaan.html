@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Senarai Kenderaan</title>
+    <style>
+        body {
+            background-image: url('/static/background.jpg');
+            background-size: cover;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .title-box {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 3px solid white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        .vehicle-box {
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 2px solid white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px;
+            width: 80%;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 15px;
+            text-decoration: underline;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            margin: 5px 0;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title-box">
+            <h1>Senarai Kenderaan Rasmi</h1>
+        </div>
+        <div class="vehicle-box">
+            <h2>Kereta</h2>
+            <ul>
+                <li>Jenis kereta - No Plat</li>
+                
+            </ul>
+        </div>
+       
+        <div class="vehicle-box">
+            <h2>Van</h2>
+            <ul>
+                <li>Jenis Van - No Plat</li>
+            </ul>
+        </div>
+		 <div class="vehicle-box">
+            <h2>Bas</h2>
+            <ul>
+                <li>Bas Mini - No plat</li>
+                <li>Bas Ekspres - No Plat</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
