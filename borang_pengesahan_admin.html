@@ -1,0 +1,78 @@
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js";
+  import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    databaseURL: "YOUR_DATABASE_URL",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app);
+  const permohonanList = document.getElementById("permohonan-list");
+
+  onValue(ref(database, "permohonan"), (snapshot) => {
+    permohonanList.innerHTML = "";
+    snapshot.forEach((childSnapshot) => {
+      const data = childSnapshot.val();
+      const key = childSnapshot.key;
+
+      permohonanList.innerHTML += `
+        <tr>
+          <td>${data.nama}</td>
+          <td>${data.jawatan}</td>
+          <td>${data.kenderaan}</td>
+          <td>${data.tarikh}</td>
+          <td>${data.status}</td>
+          <td>
+            <button onclick="updateStatus('${key}', 'Diluluskan')">Lulus</button>
+            <button onclick="updateStatus('${key}', 'Ditolak')">Tolak</button>
+          </td>
+        </tr>
+      `;
+    });
+  });
+
+  window.updateStatus = function (id, status) {
+    update(ref(database, `permohonan/${id}`), { status: status })
+      .then(() => alert(`Permohonan ${status}`))
+      .catch((error) => console.error("Ralat:", error));
+	  
+	  window.updateStatus = function (id, status) {
+    const permohonanRef = ref(database, `permohonan/${id}`);
+    const pentadbiranRef = ref(database, `permohonan_diluluskan/${id}`);
+
+    update(permohonanRef, { status: status })
+      .then(() => {
+        if (status === "Diluluskan") {
+          get(permohonanRef).then((snapshot) => {
+            set(pentadbiranRef, snapshot.val());
+          });
+        }
+        alert(`Permohonan ${status}`);
+      })
+      .catch((error) => console.error("Ralat:", error));
+};
+
+  };
+</script>
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+  emailjs.init("YOUR_USER_ID");
+
+  function sendEmail(email, status) {
+    emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+      to_email: email,
+      message: `Permohonan anda telah ${status}`
+    }).then(() => {
+      alert("Notifikasi email telah dihantar!");
+    }).catch((error) => {
+      console.error("Ralat hantar email:", error);
+    });
+  }
+</script>
